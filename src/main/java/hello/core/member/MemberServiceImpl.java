@@ -5,8 +5,14 @@ package hello.core.member;
  */
 public class MemberServiceImpl implements MemberService{
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository(); // 인터페이스의 구현체를 지정해줌. (지정안해줄수가 없음.)
-    // 추상화와 구체화를 모두 의존하고 있으므로 DIP를 위반하고 있음.
+    private final MemberRepository memberRepository;
+    /**
+     * 생성자 주입
+     * memberRepository 의 구현체를 MemberServiceImpl에서 직접 정의하지 않고, 생성자를 통해 주입받음
+     */
+    public MemberServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     @Override
     public void join(Member member) {
