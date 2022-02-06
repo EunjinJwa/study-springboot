@@ -1,5 +1,5 @@
 # spring-core
-### [인프런] Spring 핵심 원리 - 기본편 실습 프로젝트 
+### [인프런] Spring 핵심 원리 - 기본편 실습 코드 
 
 Project Spec
 - Gradle Project 
