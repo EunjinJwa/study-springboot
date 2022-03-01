@@ -17,6 +17,8 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
+ * 같은 타입의 빈이 여러 개 생성되었을 경우 빈 조회
+ *
  * Created by Eunjin on 2022-02-06.
  */
 public class ApplicationContextSameNameBeanFindTest {
@@ -32,7 +34,7 @@ public class ApplicationContextSameNameBeanFindTest {
     }
 
     @Test
-    @DisplayName("타입으로 조회시 같은 타입이 둘 이사 있으면, 빈 이름을 지정하면 된다")
+    @DisplayName("타입으로 조회시 같은 타입이 둘 이상 있으면, 빈 이름을 지정하면 된다")
     void findBeanByName() {
         MemberRepository mr = ac.getBean("memberRepository1", MemberRepository.class);
         Assertions.assertThat(mr).isInstanceOf(MemberRepository.class);
@@ -43,7 +45,7 @@ public class ApplicationContextSameNameBeanFindTest {
     void findAllBeanByType() {
         Map<String, MemberRepository> beansOfType = ac.getBeansOfType(MemberRepository.class);
         for (String key : beansOfType.keySet()) {
-            System.out.println("key = " + key + " value = " + beansOfType.get(key));
+            System.out.println("key(beanName) = " + key + ", value = " + beansOfType.get(key));
         }
 
         System.out.println("beansOfType = " + beansOfType);
