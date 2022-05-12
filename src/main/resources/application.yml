@@ -26,5 +26,7 @@ spring:
       password: 1234
       driver-class-name: com.mysql.jdbc.Driver
   batch:
+    job:
+      enabled: false # job 자동 실행 설정 (default : true)
     jdbc:
       initialize-schema: always
