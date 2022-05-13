@@ -1,5 +1,6 @@
 package inflearn.spring.springbatch;
 
+import inflearn.spring.springbatch.tasklet.CustomTasklet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
@@ -59,18 +60,7 @@ public class HelloJobConfiguration {
     @Bean
     public Step helloStep2() {
         return stepBuilderFactory.get("helloStep2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-
-                        System.out.println(" ============================ ");
-                        System.out.println(" >> step2 was executed ");
-                        System.out.println(" ============================ ");
-
-                        return RepeatStatus.FINISHED;   // tasklet이 한 번만 실행되고 끝남.
-                        // tasklet 은 기본적으로는 무한 반복임. 반복 여부 설정을 위한 RepeatStatus 타입 설정을 해줘야 함.
-                    }
-                })
+                .tasklet(new CustomTasklet())
                 .build();
     }
 }
