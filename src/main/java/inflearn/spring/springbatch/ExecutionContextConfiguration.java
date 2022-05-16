@@ -13,7 +13,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
 public class ExecutionContextConfiguration {
 
@@ -25,7 +25,7 @@ public class ExecutionContextConfiguration {
     private final ExecutionTasklet4 executionTasklet4;
     private final JobExecutionListener jobExecutionListener;
 
-    @Bean
+//    @Bean
     public Job excutionContextJob() {
         return jobBuilderFactory.get("executionContextJob")
                 .start(step1())
