@@ -27,6 +27,9 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
   batch:
     job:
-      enabled: false # job 자동 실행 설정 (default : true)
+      enabled: true # job 자동 실행 설정 (default : true)
+      names: ${job.name:NONE} # job을 선택해서 실행 시점에 실행시키고 싶을 경우 기술함 (NONE은 임의의 문자값)
     jdbc:
       initialize-schema: always
+      table-prefix: BATCH_    # default : 'BATCH_' 임. 변경 가능.
+
