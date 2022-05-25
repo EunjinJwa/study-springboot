@@ -1,4 +1,4 @@
-package inflearn.spring.springbatch;
+package inflearn.spring.springbatch.jobConfig;
 
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersInvalidException;

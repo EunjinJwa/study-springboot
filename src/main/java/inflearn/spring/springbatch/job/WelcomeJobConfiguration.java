@@ -1,4 +1,4 @@
-package inflearn.spring.springbatch;
+package inflearn.spring.springbatch.job;
 
 import inflearn.spring.springbatch.tasklet.CustomTasklet;
 import lombok.RequiredArgsConstructor;

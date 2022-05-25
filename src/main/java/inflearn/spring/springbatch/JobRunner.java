@@ -11,22 +11,22 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-//@Component
+@Component
 public class JobRunner implements ApplicationRunner {
 
     @Autowired
     private JobLauncher jobLauncher;    // Job을 실행시킬 수 있는 런쳐
 
     @Autowired
-    private Job job;
+    private Job welcomeJob;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        JobParameters jobParameters = new JobParametersBuilder()
-                .addString("requestDate", "20220515")
-                .toJobParameters();
-
-        jobLauncher.run(job, jobParameters);
+//        JobParameters jobParameters = new JobParametersBuilder()
+//                .addString("requestDate", "20220515")
+//                .toJobParameters();
+//
+//        jobLauncher.run(welcomeJob, jobParameters);
     }
 }

@@ -1,5 +1,7 @@
-package inflearn.spring.springbatch;
+package inflearn.spring.springbatch.job;
 
+import inflearn.spring.springbatch.jobConfig.CustomJobParametersValidator;
+import inflearn.spring.springbatch.tasklet.HelloTasklet;
 import inflearn.spring.springbatch.tasklet.CustomTasklet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -8,7 +10,6 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
