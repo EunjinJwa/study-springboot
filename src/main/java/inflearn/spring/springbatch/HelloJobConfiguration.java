@@ -8,8 +8,10 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -30,6 +32,11 @@ public class HelloJobConfiguration {
         return jobBuilderFactory.get("helloJob")
                 .start(helloStep1())
                 .next(helloStep2())
+                .validator(new CustomJobParametersValidator())      // custom하게 validation
+//                .validator(new DefaultJobParametersValidator(new String[]{"name", "date"}, new String[]{"run.id"}))  // 필수/옵션 key 정의
+                .preventRestart()
+//                .incrementer(new CustomJobParametersIncrementer())      // custom하게 증가되는 JobParameter 설정
+                .incrementer(new RunIdIncrementer())    // 자동으로 1씩 증가한s JobParameter
                 .build();
     }
 
@@ -54,7 +61,8 @@ public class HelloJobConfiguration {
 
                         // JobParameter 확인 방법
                         JobParameters jobParameters = stepContribution.getStepExecution().getJobExecution().getJobParameters();
-                        jobParameters.getDate("date");
+                        jobParameters.getString("name");
+//                        jobParameters.getDate("date");
 
                         Map<String, Object> jobParameters1 = chunkContext.getStepContext().getJobParameters();
 
