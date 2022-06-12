@@ -31,8 +31,6 @@ public class FileJobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final EntityManagerFactory entityManagerFactory;
-    JpaTransactionManager transactionManager
-            = new JpaTransactionManager();
 
     @Bean
     public Job fileJob() {
@@ -73,9 +71,6 @@ public class FileJobConfiguration {
 
     @Bean
     public ItemWriter<Product> fileItemWriter() {
-        transactionManager.setEntityManagerFactory(
-                entityManagerFactory);
-
         return new JpaItemWriterBuilder<Product>()
                 .entityManagerFactory(entityManagerFactory)
                 .usePersist(true)
