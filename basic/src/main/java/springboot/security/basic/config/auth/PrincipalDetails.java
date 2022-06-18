@@ -7,19 +7,28 @@ package springboot.security.basic.config.auth;
 
 // Security Session => Authentication => UserDetails
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import springboot.security.basic.model.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
-public class PrincipalDetails implements UserDetails {
+@Getter
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private User user;
 
     public PrincipalDetails(User user) {
         this.user = user;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes () {
+        return null;
     }
 
     // 해당 유저의 권한을 리턴
@@ -69,5 +78,10 @@ public class PrincipalDetails implements UserDetails {
 //            return false;
 //        }
         return true;
+    }
+
+    @Override
+    public String getName () {
+        return null;
     }
 }

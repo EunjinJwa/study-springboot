@@ -4,11 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springboot.security.basic.config.auth.PrincipalDetails;
 import springboot.security.basic.model.User;
 import springboot.security.basic.repository.UserRepository;
 
@@ -20,6 +25,32 @@ public class IndexController {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @GetMapping("/test/login")
+    public @ResponseBody String loginInfo(Authentication authentication,
+                                          @AuthenticationPrincipal PrincipalDetails userDetails) {
+        System.out.println("/test/login ==========");
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+
+        String result = new StringBuffer("세션 정보 확인하기").append("\n")
+                .append("authentication User : ").append(principalDetails.getUser())
+                .append("userDetails User : ").append(userDetails.getUser())
+                .toString();
+        return result;
+    }
+
+    @GetMapping("/test/oauth/login")
+    public @ResponseBody String oauthLoginInfo(Authentication authentication,
+                                               @AuthenticationPrincipal OAuth2User oAuth) {
+        System.out.println("/test/login ==========");
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+
+        String result = new StringBuffer("세션 정보 확인하기 \n").append("\n")
+                .append("authentication User : ").append(oAuth2User.getAttributes())
+                .append("oauth2User User : ").append(oAuth.getAttributes())
+                .toString();
+        return result;
+    }
 
     @GetMapping(value = "/")
     public String index() {
