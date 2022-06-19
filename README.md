@@ -1,8 +1,9 @@
 # Spring Security
 
 ## basic
+기본 로그인 + Ouath2.0 로그인 통합 구현
 * auth : 기본 회원 인증
-* google oauth : 구글 인증 로그인
+* google oauth : google / naver 인증 로그인
 
 google oauth
 * `Oauth2UserRequest`

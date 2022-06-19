@@ -11,6 +11,8 @@ import springboot.security.basic.config.auth.PrincipalDetails;
 import springboot.security.basic.model.User;
 import springboot.security.basic.repository.UserRepository;
 
+import java.util.Map;
+
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
@@ -36,9 +38,32 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         OAuth2User oauth2User = super.loadUser(userRequest);
         System.out.println("getAttributes : " + oauth2User.getAttributes());
 
-        PrincipalDetails principalDetails = joinForOauthUser(userRequest, oauth2User);
+        Oauth2UserInfo oauth2UserInfo = null;
+        if (userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+            oauth2UserInfo = new GoogleUserInfo( oauth2User.getAttributes());
+        } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
+            oauth2UserInfo = new NaverUserInfo((Map<String, Object>) oauth2User.getAttributes().get("response"));
+        }
+
+        PrincipalDetails principalDetails = joinForOauthUser(oauth2UserInfo);
 
         return new PrincipalDetails(principalDetails.getUser(), oauth2User.getAttributes());
+    }
+
+    private PrincipalDetails joinForOauthUser (Oauth2UserInfo oauth2UserInfo) {
+        String provider = oauth2UserInfo.getProvider();
+        String providerId = oauth2UserInfo.getProviderId();
+        String username = provider + "_" + providerId;  // ex) google_109385834929224959492
+        String password = bCryptPasswordEncoder.encode("겟인데어");
+        String email = oauth2UserInfo.getEmail();
+        String role = "ROLE_USER";
+
+        User userEntity = userRepository.findByUsername(username);
+        if (userEntity == null) {
+            userEntity = new User(username, password, email, role, provider, providerId);
+            userRepository.save(userEntity);
+        }
+        return new PrincipalDetails(userEntity);
     }
 
     /**
