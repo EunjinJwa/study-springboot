@@ -35,8 +35,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userService(principalOauth2UserService); //  구글 로그인이 완료된 뒤의 후처리가필요함. Tip. (엑세스 토큰 + 사용자프로필정)
     }
 
-    @Bean
-    public BCryptPasswordEncoder encodePwd() {
-        return new BCryptPasswordEncoder();
-    }
 }

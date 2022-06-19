@@ -1,5 +1,6 @@
 package springboot.security.basic.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 @Entity
 @Getter @Setter
 @ToString
+//@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +30,16 @@ public class User {
     private Timestamp createDate;
     private Timestamp loginDate;
 
+    public User (String username, String password, String email, String role, String provider, String providerId) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
+    }
+
+    public User () {
+
+    }
 }
