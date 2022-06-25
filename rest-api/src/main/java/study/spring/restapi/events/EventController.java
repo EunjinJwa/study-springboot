@@ -6,6 +6,7 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,10 +35,12 @@ public class EventController {
         }
 
         Event event = modelMapper.map(eventDto, Event.class);
-        Event newEvent = this.eventRepository.save(event);
-        System.out.println("newEvent : " + newEvent);
-//        URI uri = ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(EventController.class).createEvent()).slash("{id").toUri();
-        return ResponseEntity.created(null).body(newEvent);
+        return ResponseEntity.created(null).body(null);
+    }
+
+    @GetMapping()
+    public ResponseEntity getEvent() {
+        return ResponseEntity.ok(new Event());
     }
 
 }
