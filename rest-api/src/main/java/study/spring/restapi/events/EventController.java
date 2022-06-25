@@ -18,7 +18,6 @@ import javax.validation.Valid;
 public class EventController {
 
     private final EventRepository eventRepository;
-
     private final ModelMapper modelMapper;
     private final EventValidator eventValidator;
 
