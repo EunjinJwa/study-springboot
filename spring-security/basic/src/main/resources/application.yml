@@ -10,5 +10,5 @@ server:
 spring:
   profiles:
     include:
-    - private
+    - private   # https://github.com/EunjinJwa/private-info/blob/main/spring-security/application-private.yml
     - oauth
