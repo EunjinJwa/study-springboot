@@ -97,8 +97,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withExpiresAt(new Date(System.currentTimeMillis() + 60000*10))    // 만료 시간 (10분)
                 .withClaim("id", principalDetails.getUser().getId())
                 .withClaim("username", principalDetails.getUser().getUsername())    // withClaim : 내가 토큰에 넣고싶은 value값을 넣으면 됨.
-                .sign(Algorithm.HMAC512("jin"));
+                .sign(Algorithm.HMAC512(JwtProperties.SECRET_KEY));
 
-        response.addHeader("Authorization", "Bearer " + jwtToken);
+        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
     }
 }

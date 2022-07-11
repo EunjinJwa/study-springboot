@@ -2,10 +2,7 @@ package springboot.security.jwtserver.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springboot.security.jwtserver.model.User;
 import springboot.security.jwtserver.repository.UserRepository;
 
@@ -35,4 +32,20 @@ public class RestApiController {
         return "회원가입 완료";
     }
 
+    @GetMapping("/api/v1/user")
+    public String user() {
+        return "user";
+    }
+
+
+    @GetMapping("/api/v1/manager")
+    public String manager() {
+        return "user";
+    }
+
+
+    @GetMapping("/api/v1/admin")
+    public String admin() {
+        return "user";
+    }
 }

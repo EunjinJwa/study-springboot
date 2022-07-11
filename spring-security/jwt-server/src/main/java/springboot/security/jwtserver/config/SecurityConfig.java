@@ -10,8 +10,10 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.filter.CorsFilter;
 import springboot.security.jwtserver.auth.jwt.JwtAuthenticationFilter;
+import springboot.security.jwtserver.auth.jwt.JwtAuthorizationFilter;
 import springboot.security.jwtserver.filter.MyFilter1;
 import springboot.security.jwtserver.filter.MyFilter2;
+import springboot.security.jwtserver.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +21,7 @@ import springboot.security.jwtserver.filter.MyFilter2;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CorsFilter corsFilter;
+    private final UserRepository userRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
                 .authorizeRequests()
                 .antMatchers("/api/v1/user/**")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")

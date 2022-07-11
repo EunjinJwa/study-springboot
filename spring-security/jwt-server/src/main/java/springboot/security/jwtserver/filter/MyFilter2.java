@@ -24,12 +24,12 @@ public class MyFilter2 implements Filter {
             String headerAuth = req.getHeader("Authorization");
             System.out.println("headerAuth : " + headerAuth);
 
-            if (headerAuth.equals("hello")) {
+//            if (headerAuth.equals("hello")) {
                 filterChain.doFilter(req, res);
-            } else {
-                PrintWriter out = res.getWriter();
-                out.println("인증 안됨");
-            }
+//            } else {
+//                PrintWriter out = res.getWriter();
+//                out.println("인증 안됨");
+//            }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
