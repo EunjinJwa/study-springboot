@@ -63,14 +63,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @param http
      * @throws Exception
      */
-    @Override
-    protected void configure (HttpSecurity http) throws Exception {
-        http.anonymous()
-                .and()
-                .formLogin()
-                .and()
-                .authorizeRequests()
-                .mvcMatchers(HttpMethod.GET, "/hello/**").anonymous()     // GET /api/** 는 누구에게나 허용함
-                .anyRequest().authenticated();      // 나머지 요청은 인증 필요
-    }
+//    @Override
+//    protected void configure (HttpSecurity http) throws Exception {
+//        http.anonymous()
+//                .and()
+//                .formLogin()
+//                .and()
+//                .authorizeRequests()
+//                .mvcMatchers(HttpMethod.GET, "/api/**").anonymous()     // GET /api/** 는 누구에게나 허용함
+//                .anyRequest().authenticated();      // 나머지 요청은 인증 필요
+//    }
 }
