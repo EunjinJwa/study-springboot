@@ -34,6 +34,11 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         security.passwordEncoder(passwordEncoder);
     }
 
+    /**
+     * password token 설정
+     * @param clients
+     * @throws Exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         System.out.println(">> configure(ClientDetailsServiceConfigurer clients)");

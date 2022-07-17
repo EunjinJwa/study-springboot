@@ -3,6 +3,9 @@ package study.spring.restapi.config;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.oauth2.common.util.Jackson2JsonParser;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import study.spring.restapi.accounts.Account;
@@ -29,6 +32,11 @@ class AuthServerConfigTest extends BaseControllerTest {
     @Test
     @DisplayName("인증 토큰을 발급 받는 테스트")
     public void getAuthToken() throws Exception {
+        String token = getAccessToken();
+        System.out.println("token = " + token);
+    }
+
+    private String getAccessToken() throws Exception {
         // Given
         String username = "jinny@gmmm.com";
         String password = "jjj";
@@ -38,12 +46,11 @@ class AuthServerConfigTest extends BaseControllerTest {
                 .roles(Collections.unmodifiableSet(new HashSet<>(Arrays.asList(AccountRole.ADMIN, AccountRole.USER))))
                 .build();
 
-        this.accountService.saveAccount(account);
-
+//        this.accountService.saveAccount(account);
 
         String clientId = "myApp";
         String clientSecret = "pass";
-        this.mockMvc.perform(post("/oauth/token")
+        ResultActions perform = this.mockMvc.perform(post("/oauth/token")
                         .with(httpBasic(clientId, clientSecret))
                         .param("username", username)
                         .param("password", password)
@@ -52,5 +59,9 @@ class AuthServerConfigTest extends BaseControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("access_token").exists());
+
+        String responseBody = perform.andReturn().getResponse().getContentAsString();
+        Jackson2JsonParser parser = new Jackson2JsonParser();
+        return parser.parseMap(responseBody).get("access_token").toString();
     }
 }
