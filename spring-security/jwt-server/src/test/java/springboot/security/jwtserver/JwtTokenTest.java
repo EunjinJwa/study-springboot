@@ -27,6 +27,7 @@ public class JwtTokenTest {
 ////        String encodingBasicKey = Base64.getEncoder().encodeToString(basicKey.getBytes());
 //        String encodingClientId = Base64.getEncoder().encodeToString(clientId.getBytes());
 
+        // 만료일 확인
         final String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJ0cnVzdCJdLCJleHAiOjE2NjI3ODE5ODcsImF1dGhvcml0aWVzIjpbIlJPTEVfVFJVU1RFRF9TRVJWRVIiXSwianRpIjoiM2I2MDI5YzQtNjA2Ny00Y2E5LWFlNmQtY2EyOTQyMWRiMTIyIiwiY2xpZW50X2lkIjoidHJ1c3RlZC1kYS1zZXJ2ZXIifQ.8kv_5RvJNjwhK2_EGt43thl36RBw_lVWzSBO62g-ipw";
         DecodedJWT djwt = JWT.decode(token);
         System.out.println(djwt.getAlgorithm());
