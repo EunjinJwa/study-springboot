@@ -2,6 +2,6 @@
 
 ### OAuth 로그인 구현
 * Google
-* Naver
+* Naver 
 
-* test 
+travis build test..! 
