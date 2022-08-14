@@ -14,6 +14,22 @@ cache:
 
 script: "cd aws-webservice ./gradlew clean build"
 
+before_deploy:
+    - zip -r aws-webservice *
+    - mkdir -p deploy
+    - mv aws-webservice.zip deploy/aws-webservice.zip
+
+deploy:
+    - provider: s3
+      access_key_id: $AWS_ACCESS_KEY  # Travis repo setting에 설정된 값
+      secret_access_key: $AWS_SECRET_KEY
+      bucket: jinny-deploy
+      region: ap-northeast-2
+      skip_cleanup: true
+      acl: private    # zip 파일 접근을 private으로
+      local_dir: deploy   # before_deploy에서 생성한 디렉토리 
+      wait-until-deploy: true
+
 # CI 실행 완료시 메일로 알람
 notifications:
   email:
