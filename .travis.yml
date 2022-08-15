@@ -17,7 +17,7 @@ script: "cd aws-webservice ./gradlew build"
 before_deploy:
     - pwd
     - mkdir -p before-deploy
-    - cp scripts/*.sh before-deploy
+    - cp script/*.sh before-deploy
     - cp appspec.yml before-deploy
     - cp byuld.libs/*.jar before-deploy/
     - cd before-deploy && zip -r before-deploy 
