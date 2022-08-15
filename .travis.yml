@@ -15,6 +15,7 @@ cache:
 script: "cd aws-webservice ./gradlew build"
 
 before_deploy:
+    - echo pwd
     - mkdir -p before-deploy
     - cp scripts/*.sh before-deploy
     - cp appspec.yml before-deploy
