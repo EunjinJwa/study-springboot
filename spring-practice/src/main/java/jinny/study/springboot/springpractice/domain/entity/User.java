@@ -1,11 +1,11 @@
 package jinny.study.springboot.springpractice.domain.entity;
 
 import com.sun.istack.internal.NotNull;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import jdk.nashorn.internal.objects.annotations.Constructor;
+import lombok.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Getter @Setter
 @ToString
