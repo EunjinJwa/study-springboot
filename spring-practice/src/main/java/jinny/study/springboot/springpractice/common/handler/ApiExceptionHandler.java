@@ -1,6 +1,8 @@
 package jinny.study.springboot.springpractice.common.handler;
 
+import jinny.study.springboot.springpractice.exception.CheckThrowException;
 import jinny.study.springboot.springpractice.exception.CustomException;
+import jinny.study.springboot.springpractice.exception.InvalidValueException;
 import jinny.study.springboot.springpractice.struct.ErrorCode;
 import jinny.study.springboot.springpractice.struct.dto.ErrorResponse;
 import org.slf4j.Logger;
@@ -42,7 +44,7 @@ public class ApiExceptionHandler {
                 .description("")
                 .build();
 
-        log.error("InternalErrorException | {} | ", response.toString(), e);
+        log.error("CustomException | {} | ", response.toString(), e);
         return new ResponseEntity<>(response, e.getHttpStatus());
     }
 
@@ -58,6 +60,16 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler({CheckThrowException.class})
+    public ResponseEntity<ErrorResponse> checkThrowExceptionHandler(CheckThrowException e) {
+        ErrorResponse response = ErrorResponse.builder()
+                .code(ErrorCode.INVALID_PARAMETERS)
+                .message(e.toString())
+                .description("")
+                .build();
 
+        log.error("CheckThrowException | {} | ", response.toString(), e);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
 }
